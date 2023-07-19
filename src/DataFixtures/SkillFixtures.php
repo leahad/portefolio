@@ -2,11 +2,12 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Project;
 use App\Entity\Skill;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class SkillFixtures extends Fixture
+class SkillFixtures extends Fixture 
 {
     public function load(ObjectManager $manager): void
     {
@@ -16,12 +17,12 @@ class SkillFixtures extends Fixture
 
             $skill->setName($skillName);
             
-            $manager->persist($skillName);
-            
-            $this->addReference('category_' . $this->$skillName, $skill);
-        
-        }
+            $manager->persist($skill);
 
+            $this->addReference("skill_" . $skillName, $skill);
+
+        }
+            
         $manager->flush();
     }
 }

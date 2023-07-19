@@ -3,17 +3,25 @@
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
+use DateTime;
+use DateTimeImmutable;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
+#[Vich\Uploadable]
 class Project
 {
     public const PROJECTS = [
     [
         "title"=> "CV de Hermione Granger", 
-        "createdAt"=> "07/03/2023", 
+        "createdAt"=> "2023-03-07", 
         "duration" => "2 weeks", 
         "description" => "réaliser le CV d'un personnage fictif", 
         "skills" => ["Figma", "HTML" , "CSS" , "JavaScript" , "Git" , "Github"], 
@@ -21,15 +29,41 @@ class Project
         "picture" => "CV-Hermione.jpg",
     ],
     [
-        "title"=> "e-stoire", 
-        "createdAt"=> "05/04/2023", 
+        "title"=> "E-stoire", 
+        "createdAt"=> "2023-04-05", 
         "duration" => "1 mois", 
-        "description" => " plateforme collaborative de création d'histoires", 
-        "skills" => ["Figma", "HTML" , "CSS" , "JavaScript" , "Twig" ,  "Pico" , "PHP",  "Composer" , "SQL"  , "PDO",  "Git" , "Github"], 
+        "description" => "plateforme collaborative de création d'histoires", 
+        "skills" => ["Figma", "HTML", "CSS", "JavaScript", "Twig", "Pico", "PHP", "Composer", "SQL", "PDO",  "Git", "Github"], 
         "github" => "https://github.com/WildCodeSchool/2023-02-php-paris-p2-story", 
         "picture" => "e-stoire.jpg",
     ],
-
+    [
+        "title"=> "Hackathon : plan", 
+        "createdAt"=> "2023-05-10", 
+        "duration" => "1 jour", 
+        "description" => "application de suggestion de destination de vacances", 
+        "skills" => ["HTML", "SCSS", "Twig", "PHP", "Composer", "SQL", "PDO",  "Git", "Github"], 
+        "github" => "https://github.com/leahad/plan", 
+        "picture" => "plan.jpg",
+    ],
+    [
+        "title"=> "Emmaüs Mobile Connect", 
+        "createdAt"=> "2023-06-28", 
+        "duration" => "2 jours", 
+        "description" => "assistant de vente de smartphones pour Emmaüs", 
+        "skills" => ["HTML", "CSS", "Twig", "Bootstrap", "PHP", "Symfony", "Composer", "SQL", "Yarn", "Git", "Github"], 
+        "github" => "https://github.com/Lionel-darosa/Emmaus-Mobile-Connect", 
+        "picture" => "plan.jpg",
+    ],
+    [
+        "title"=> "Externatic", 
+        "createdAt"=> "2023-05-28", 
+        "duration" => "2 mois", 
+        "description" => "plateforme de recherche d'emploi pour Externatic", 
+        "skills" => ["Figma", "HTML", "CSS", "JavaScript", "Twig", "Bootstrap", "PHP", "Symfony", "Composer", "SQL", "Yarn", "Git", "Github"], 
+        "github" => "https://github.com/WildCodeSchool/2023-02-php-paris-p3-externatic", 
+        "picture" => "externatic.jpg",
+    ],
     ];
 
     #[ORM\Id]
@@ -55,11 +89,21 @@ class Project
     #[ORM\Column(length: 255)]
     private ?string $picture = null;
 
+    #[Vich\UploadableField(mapping: 'picture', fileNameProperty: 'picture')]
+    #[Assert\File(
+        maxSize: '1M',
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+    )]
+    private ?File $pictureFile = null;
+
     #[ORM\Column(length: 255, nullable:true)]
     private ?string $video = null;
 
     #[ORM\ManyToMany(targetEntity: Skill::class, mappedBy: 'project')]
     private Collection $skills;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?DateTimeInterface $updatedAt = null;
 
     public function __construct()
     {
@@ -107,12 +151,12 @@ class Project
         return $this;
     }
 
-    public function getcreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setDate(\DateTimeImmutable $createdAt): static
+    public function setCreatedAt(DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
 
@@ -141,6 +185,21 @@ class Project
         $this->picture = $picture;
 
         return $this;
+    }
+
+    public function setPosterFile(File $image = null): Project
+    {
+        $this->pictureFile = $image;
+        if ($image) {
+            $this->updatedAt = new DateTime('now');
+        }
+
+        return $this;
+    }
+
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
     }
 
     public function getVideo(): ?string
@@ -178,6 +237,18 @@ class Project
         if ($this->skills->removeElement($skill)) {
             $skill->removeProject($this);
         }
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

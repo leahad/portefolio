@@ -21,6 +21,7 @@ class Skill
         "PHP", 
         "Symfony",  
         "Composer", 
+        "Yarn",
         "SQL",
         "PDO",  
         "Git", 

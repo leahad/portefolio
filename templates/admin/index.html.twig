@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Project index{% endblock %}
+
+{% block body %}
+    <h1>Project index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Duration</th>
+                <th>CreatedAt</th>
+                <th>Github</th>
+                <th>Picture</th>
+                <th>Video</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for project in projects %}
+            <tr>
+                <td>{{ project.id }}</td>
+                <td>{{ project.Title }}</td>
+                <td>{{ project.description }}</td>
+                <td>{{ project.duration }}</td>
+                <td>{{ project.createdAt ? project.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ project.github }}</td>
+                <td>{{ project.picture }}</td>
+                <td>{{ project.video }}</td>
+                <td>
+                    <a href="{{ path('admin_project_show', {'id': project.id}) }}">show</a>
+                    <a href="{{ path('admin_project_edit', {'id': project.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_project_new') }}">Create new</a>
+{% endblock %}
