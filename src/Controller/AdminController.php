@@ -59,7 +59,7 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_project_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('admin/edit.html.twig', [

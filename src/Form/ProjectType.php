@@ -3,23 +3,77 @@
 namespace App\Form;
 
 use App\Entity\Project;
+use App\Entity\Skill;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\UX\Dropzone\Form\DropzoneType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 
 class ProjectType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Title')
-            ->add('description')
-            ->add('duration')
-            ->add('createdAt')
-            ->add('github')
-            ->add('picture')
-            ->add('video')
-            ->add('skills')
+            ->add('Title', TextType::class, [
+                'label' => false,
+                'attr' => [
+                    'class' => 'form-control mb-4',
+                    'placeholder' => 'Title of the project',
+                ],
+            ])
+            ->add('duration',TextType::class, [
+                'label' => false,
+                'attr' => [
+                    'class' => 'form-control mb-4',
+                    'placeholder' => 'Duration',
+                ],
+            ])
+            ->add('createdAt', DateType::class, [
+                'label' => 'Starting date',
+                'attr' => [
+                    'class' => 'form-control mb-4',
+                ],
+                'widget' => 'single_text',
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => false,
+                'attr' => [
+                    'class' => 'form-control mb-4',
+                    'placeholder' => 'Description',
+                ],
+            ])
+            ->add('skills', EntityType::class, [
+                'placeholder' => 'Skills',
+                'class' => Skill::class,
+                'choice_label' => 'name',
+                'attr' => [
+                    'class' => 'form-check-input mb-4',
+                    'label-class' => 'form-check-label',
+                ],
+                'multiple' => true,
+                'expanded' => true,
+            ])
+            ->add('pictureFile', DropzoneType::class, [
+                'data_class'=> null,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Drag and drop a file or click to browse',
+                ],
+            ])
+            ->add('github', UrlType::class, [
+                'label' => false,
+                'attr' => [
+                    'class' => 'form-control mt-4 mb-4',
+                    'placeholder' => 'Github Link',
+                ],
+            ])
+            // ->add('video')
         ;
     }
 

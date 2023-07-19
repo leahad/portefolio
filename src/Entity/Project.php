@@ -89,7 +89,7 @@ class Project
     #[ORM\Column(length: 255)]
     private ?string $picture = null;
 
-    #[Vich\UploadableField(mapping: 'picture', fileNameProperty: 'picture')]
+    #[Vich\UploadableField(mapping: 'pictures', fileNameProperty: 'picture')]
     #[Assert\File(
         maxSize: '1M',
         mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
@@ -180,14 +180,14 @@ class Project
         return $this->picture;
     }
 
-    public function setPicture(string $picture): static
+    public function setPicture(?string $picture): static
     {
         $this->picture = $picture;
 
         return $this;
     }
 
-    public function setPosterFile(File $image = null): Project
+    public function setPictureFile(File $image = null): Project
     {
         $this->pictureFile = $image;
         if ($image) {

@@ -1,7 +1,35 @@
-$primary: rgb(203, 221, 209);
+$primary: #CBDDD1;
 $secondary: #CDC2FE;
+$tertiary: #004B35;
 
 $body-bg: $primary;
+
+$input-border-color: $tertiary;
+
+.margin {
+    margin: 0 auto;
+    max-width: 1400px;
+    width: 100%;
+    padding: 1.5rem;
+}
+
+.dropzone-placeholder,
+.dropzone-preview-filename,
+.dropzone-preview-button::before {
+    color: $tertiary;
+}
+
+.dropzone-container {
+    border: 2px dashed $tertiary;
+    justify-content: center;
+    min-height: 195px;
+}
+
+.dropzone-preview-image,
+.dropzone-preview-image {
+    min-width: 130px;
+    height: 130px;
+}
 
 @import "~bootstrap/scss/bootstrap";
 
