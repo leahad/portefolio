@@ -10,16 +10,33 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: SkillRepository::class)]
 class Skill
 {
+    public const SKILLS = 
+    [   "Figma", 
+        "HTML", 
+        "CSS", 
+        "JavaScript",
+        "Twig", 
+        "Pico", 
+        "Bootsrap", 
+        "PHP", 
+        "Symfony",  
+        "Composer", 
+        "SQL",
+        "PDO",  
+        "Git", 
+        "Github",
+    ];
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
-
     #[ORM\ManyToMany(targetEntity: Project::class, inversedBy: 'skills')]
     private Collection $project;
+
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
 
     public function __construct()
     {
@@ -29,18 +46,6 @@ class Skill
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): static
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     /**
@@ -63,6 +68,18 @@ class Skill
     public function removeProject(Project $project): static
     {
         $this->project->removeElement($project);
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }

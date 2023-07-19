@@ -10,6 +10,28 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 class Project
 {
+    public const PROJECTS = [
+    [
+        "title"=> "CV de Hermione Granger", 
+        "createdAt"=> "07/03/2023", 
+        "duration" => "2 weeks", 
+        "description" => "réaliser le CV d'un personnage fictif", 
+        "skills" => ["Figma", "HTML" , "CSS" , "JavaScript" , "Git" , "Github"], 
+        "github" =>"https://alexandre78r.github.io/CV-Hermione/", 
+        "picture" => "CV-Hermione.jpg",
+    ],
+    [
+        "title"=> "e-stoire", 
+        "createdAt"=> "05/04/2023", 
+        "duration" => "1 mois", 
+        "description" => " plateforme collaborative de création d'histoires", 
+        "skills" => ["Figma", "HTML" , "CSS" , "JavaScript" , "Twig" ,  "Pico" , "PHP",  "Composer" , "SQL"  , "PDO",  "Git" , "Github"], 
+        "github" => "https://github.com/WildCodeSchool/2023-02-php-paris-p2-story", 
+        "picture" => "e-stoire.jpg",
+    ],
+
+    ];
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -33,7 +55,7 @@ class Project
     #[ORM\Column(length: 255)]
     private ?string $picture = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $video = null;
 
     #[ORM\ManyToMany(targetEntity: Skill::class, mappedBy: 'project')]
