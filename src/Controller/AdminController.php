@@ -33,7 +33,7 @@ class AdminController extends AbstractController
             $entityManager->persist($project);
             $entityManager->flush();
 
-            return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_project_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('admin/new.html.twig', [
@@ -76,6 +76,6 @@ class AdminController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('admin_project_index', [], Response::HTTP_SEE_OTHER);
     }
 }

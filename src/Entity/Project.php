@@ -72,18 +72,27 @@ class Project
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max:50)]
     private ?string $Title = null;
 
     #[ORM\Column(length: 1000)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 10, max:1000)]
     private ?string $description = null;
 
     #[ORM\Column(length: 20)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max:20)]
     private ?string $duration = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    #[Assert\NotBlank]
+    private ?DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max:255)]
     private ?string $github = null;
 
     #[ORM\Column(length: 255)]
@@ -100,6 +109,7 @@ class Project
     private ?string $video = null;
 
     #[ORM\ManyToMany(targetEntity: Skill::class, mappedBy: 'project')]
+    #[Assert\NotBlank]
     private Collection $skills;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]

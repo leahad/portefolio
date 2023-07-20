@@ -6,14 +6,14 @@ use App\Entity\Project;
 use App\Entity\Skill;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\UX\Dropzone\Form\DropzoneType;
+use Symfony\Component\Validator\Constraints\Count as Count;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 
 class ProjectType extends AbstractType
 {
@@ -34,10 +34,11 @@ class ProjectType extends AbstractType
                     'placeholder' => 'Duration',
                 ],
             ])
-            ->add('createdAt', DateType::class, [
+            ->add('createdAt', DateTimeType::class, [
                 'label' => 'Starting date',
+                'input' => 'datetime_immutable',
                 'attr' => [
-                    'class' => 'form-control mb-4',
+                    'class' => 'form-control mb-4', 
                 ],
                 'widget' => 'single_text',
             ])
@@ -58,6 +59,12 @@ class ProjectType extends AbstractType
                 ],
                 'multiple' => true,
                 'expanded' => true,
+                'by_reference' => false,
+                'constraints' => [
+                    new Count([
+                        'min' => 1, 'minMessage' => 'Please select at least one skill'
+                    ]),
+                ]
             ])
             ->add('pictureFile', DropzoneType::class, [
                 'data_class'=> null,
