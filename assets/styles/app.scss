@@ -6,6 +6,9 @@ $green: #004B35;
 
 $font-family-base:'Montserrat', sans-serif;
 $body-bg: $primary;
+$card-border-width: 0;
+$card-inner-border-radius: 0;
+$link-color: $green;
 
 $input-border-color: $green;
 $link-decoration:none;
@@ -13,8 +16,43 @@ $link-decoration:none;
 #header {
     background-color: $secondary;
     color:#2f05eaa6;
-    height:22rem;
+    height:50rem;
 }
+
+//project cards
+.clickable-card {
+    // border-radius: 10px;
+    overflow: hidden;
+    box-shadow: none;
+    transform-origin: center center;
+    transition: all 0.4s ease-in-out;
+    color: black;
+}
+
+.clickable-card h6,
+.clickable-card .read-more {
+    transition: color 0.4s ease-in-out;
+}
+
+.clickable-card img {
+    transform-origin: center;
+    transition: transform 0.4s ease-in-out;
+}
+
+.clickable-card:hover h6,
+.clickable-card:focus h6 {
+    color: $green;
+}
+
+.clickable-card:hover img,
+.clickable-card:focus img {
+    transform: scale(1.1);
+}
+
+#contact-form {
+    margin: 0 auto;
+}
+
 
 //admin form
 .margin {

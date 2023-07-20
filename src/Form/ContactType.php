@@ -30,7 +30,7 @@ class ContactType extends AbstractType
                 ],
                 'label' => 'Adresse email',
                 'label_attr' => [
-                    'class' => 'form-label  mt-4'
+                    'class' => 'form-label mt-2'
                 ],
             ])
             ->add('subject', TextType::class, [
@@ -39,7 +39,7 @@ class ContactType extends AbstractType
                 ],
                 'label' => 'Sujet',
                 'label_attr' => [
-                    'class' => 'form-label  mt-4'
+                    'class' => 'form-label  mt-2'
                 ],
             ])
             ->add('message',TextareaType::class, [
@@ -48,7 +48,7 @@ class ContactType extends AbstractType
                 ],
                 'label' => 'Message',
                 'label_attr' => [
-                    'class' => 'form-label mt-4'
+                    'class' => 'form-label mt-2'
                 ],
             ]);
     }

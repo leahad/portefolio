@@ -1,26 +1,10 @@
-<div id="header" class="text-center p-4">
-    <h1 class=" mt-4 mb-4">Hello</h1>
-    <h3> Je suis Léa Hadida</h3> 
-    <h3>Développeuse Full Stack</h3>
-    <p class="mt-4">Parce qu'un repo vaut mille mots, découvre mes réalisations ci-dessous</p>
-    <button class="btn btn-success" type="submit">mes projets</button>
-
-    <div class="d-flex flex-row mt-2">
-        <div class="p-2">
-            <a target="_blank" href="https://github.com/leahad">
-                <img src="{{ asset('build/images/github.svg') }}" alt="github"/>
-            </a>
-        </div>
-        <div class="p-2">
-            <a target="_blank" href="https://www.linkedin.com/in/leahadida/">
-                <img class="mt-1"src="{{ asset('build/images/linkedin.svg') }}" alt="linkdein"/>
-            </a>
-        </div>
-        <div class="p-2">
-            <a  data-bs-toggle="modal" data-bs-target="#cv">
-                <img class="mt-2" src="{{ asset('build/images/CV-picto.svg') }}" alt="linkdein"/>
-            </a>
-            {% include 'home/section/_modalResume.html.twig' %}
-        </div>
+<div id="header" class="p-4">
+    <div class="text-center">
+        <h1 class=" mt-4 mb-4">Hello</h1>
+        <h3> Je suis Léa Hadida</h3> 
+        <h3>Développeuse Full Stack</h3>
+        <p class="mt-4">Parce qu'un repo vaut mille mots, découvrez mes réalisations ci-dessous</p>
+        <button class="btn btn-success" type="submit">mes projets</button>
     </div>
+{% include 'component/_verticalNavbar.html.twig'%}
 </div>

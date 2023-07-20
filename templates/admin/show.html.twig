@@ -3,48 +3,52 @@
 {% block title %}Project{% endblock %}
 
 {% block body %}
-    <h1>Project</h1>
+    <div class="margin">
+        <h3>{{ project.Title }}</h3>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ project.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ project.Title }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ project.description }}</td>
-            </tr>
-            <tr>
-                <th>Duration</th>
-                <td>{{ project.duration }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ project.createdAt ? project.createdAt|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Github</th>
-                <td>{{ project.github }}</td>
-            </tr>
-            <tr>
-                <th>Picture</th>
-                <td>{{ project.picture }}</td>
-            </tr>
-            <tr>
-                <th>Video</th>
-                <td>{{ project.video }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <a href="{{ path('admin_project_index') }}">back to list</a>
 
-    <a href="{{ path('admin_project_index') }}">back to list</a>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ project.id }}</td>
+                </tr>
+                <tr>
+                    <th>Title</th>
+                    <td>{{ project.Title }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ project.description }}</td>
+                </tr>
+                <tr>
+                    <th>Duration</th>
+                    <td>{{ project.duration }}</td>
+                </tr>
+                <tr>
+                    <th>CreatedAt</th>
+                    <td>{{ project.createdAt ? project.createdAt|date('Y-m-d') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Github</th>
+                    <td>{{ project.github }}</td>
+                </tr>
+                <tr>
+                    <th>Picture</th>
+                    <td>{{ project.picture }}</td>
+                </tr>
+                <tr>
+                    <th>Video</th>
+                    <td>{{ project.video }}</td>
+                </tr>
+            </tbody>
+        </table>
 
-    <a href="{{ path('admin_project_edit', {'id': project.id}) }}">edit</a>
+        {# <div class="text-center"> #}
+            <a class="btn btn-secondary mb-2" role="button" href="{{ path('admin_project_edit', {'id': project.id}) }}">Edit</a>
 
-    {{ include('component/_delete_form.html.twig') }}
+            {{ include('component/_delete_form.html.twig') }}
+        {# </div> #}
+    </div>
 {% endblock %}

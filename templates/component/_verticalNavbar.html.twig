@@ -1,0 +1,18 @@
+<div class="nav sticky-top flex-column">
+        <li class="nav-item">
+            <a target="_blank" class="nav-link" href="https://github.com/leahad">
+                <img class="me-3"src="{{ asset('build/images/github.svg') }}" alt="github"/>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a target="_blank" class="nav-link" href="https://www.linkedin.com/in/leahadida/">
+                <img class="ms-2"src="{{ asset('build/images/linkedin.svg') }}" alt="linkdein"/>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a data-bs-toggle="modal" class="nav-link" data-bs-target="#cv">
+                <img class="mt-2 ms-1" src="{{ asset('build/images/CV-picto.svg') }}" alt="linkdein"/>
+            </a>
+            {% include 'home/section/_modalResume.html.twig' %}
+        </li>
+    </div>

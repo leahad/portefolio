@@ -54,8 +54,8 @@ class ProjectType extends AbstractType
                 'class' => Skill::class,
                 'choice_label' => 'name',
                 'attr' => [
-                    'class' => 'form-check-input mb-4',
-                    'label-class' => 'form-check-label',
+                    'class' => 'mb-4',
+                    // 'label-class' => 'form-check-label',
                 ],
                 'multiple' => true,
                 'expanded' => true,
