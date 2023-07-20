@@ -76,7 +76,7 @@ class ProjectType extends AbstractType
             ->add('github', UrlType::class, [
                 'label' => false,
                 'attr' => [
-                    'class' => 'form-control mt-4 mb-4',
+                    'class' => 'form-control mt-4',
                     'placeholder' => 'Github Link',
                 ],
             ])

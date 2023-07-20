@@ -6,6 +6,13 @@ $body-bg: $primary;
 
 $input-border-color: $tertiary;
 
+#header {
+    background-color: $secondary;
+    color:#2f05eaa6;
+    height:20rem;
+}
+
+//admin form
 .margin {
     margin: 0 auto;
     max-width: 1400px;
