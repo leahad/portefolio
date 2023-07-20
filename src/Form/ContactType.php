@@ -21,7 +21,7 @@ class ContactType extends AbstractType
                 ],
                 'label' => 'Pénom et nom',
                 'label_attr' => [
-                    'class' => 'form-label  mt-4'
+                    'class' => 'form-label'
                 ]
             ])
             ->add('email', EmailType::class, [

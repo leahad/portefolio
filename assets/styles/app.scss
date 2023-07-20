@@ -1,15 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 $primary: #CBDDD1;
 $secondary: #CDC2FE;
-$tertiary: #004B35;
+$green: #004B35;
 
+$font-family-base:'Montserrat', sans-serif;
 $body-bg: $primary;
 
-$input-border-color: $tertiary;
+$input-border-color: $green;
+$link-decoration:none;
 
 #header {
     background-color: $secondary;
     color:#2f05eaa6;
-    height:20rem;
+    height:22rem;
 }
 
 //admin form
@@ -23,11 +27,11 @@ $input-border-color: $tertiary;
 .dropzone-placeholder,
 .dropzone-preview-filename,
 .dropzone-preview-button::before {
-    color: $tertiary;
+    color: $green;
 }
 
 .dropzone-container {
-    border: 2px dashed $tertiary;
+    border: 2px dashed $green;
     justify-content: center;
     min-height: 195px;
 }

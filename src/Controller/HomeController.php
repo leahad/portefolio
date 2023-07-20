@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Form\ContactType;
+use App\Repository\ProjectRepository;
 use App\Service\FortuneCookie;
 use App\Service\FortuneCookies;
 use App\Service\GithubData;
@@ -18,8 +19,14 @@ use Symfony\Component\Mailer\MailerInterface;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function index(Request $request, EntityManagerInterface $manager, MailerInterface $mailer, GithubData $github, FortuneCookie $fortuneCookie): Response
-    {
+    public function index(
+        Request $request, 
+        EntityManagerInterface $manager, 
+        MailerInterface $mailer, 
+        GithubData $github,
+        FortuneCookie $fortuneCookie,
+        ProjectRepository $projectRepository,
+    ): Response {
         $contact = new Contact();
 
         $form = $this->createForm(ContactType::class, $contact);
@@ -51,7 +58,8 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
             'form' => $form->createView(),
             'github_contributions' => $github->getTotalContributions(),
-            'fortune_cookie' => $fortuneCookie->getMessage()
+            'fortune_cookie' => $fortuneCookie->getMessage(),
+            'projects' => $projectRepository->findAll()
         ]);
     }
 }

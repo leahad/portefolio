@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Léa Hadida{% endblock %}
-
 {% block body %}
     {% include 'home/section/_header.html.twig'%}
     <div class="container">
@@ -13,6 +11,11 @@
         <div>
             fortune cookie: "{{ fortune_cookie }}"
         </div>
-	</div>
-    {# {% include 'home/section/_contact.html.twig'%} #}
+        <div class="container">
+            <div class="row justify-content-center">
+                {% for project in projects %} 
+                    {% include 'home/section/_projectCard.html.twig'%}
+                {% endfor %}
+	        </div>
+        {% include 'home/section/_contactForm.html.twig'%}
 {% endblock %}
