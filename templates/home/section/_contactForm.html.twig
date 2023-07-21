@@ -12,5 +12,13 @@
     {% endfor %}
 
     <h5 class="mt-5 text-center">Contactez moi</h5>
-    {{ include('component/_form.html.twig', {'button_label': 'Envoyer'}) }}
+    <div class="margin">
+    {{ form_start(contact_form) }}
+        {{ form_widget(contact_form) }}
+        <div class="text-center">
+            <button class="btn btn-info mt-4">Envoyer</button>
+        </div>
+    {{ form_end(contact_form) }}
+</div>
+
 </div>

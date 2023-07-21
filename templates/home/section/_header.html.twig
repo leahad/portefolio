@@ -1,10 +1,24 @@
-<div id="header" class="p-4">
+<div id="header">
     <div class="text-center">
-        <h1 class=" mt-4 mb-4">Hello</h1>
-        <h3> Je suis Léa Hadida</h3> 
-        <h3>Développeuse Full Stack</h3>
-        <p class="mt-4">Parce qu'un repo vaut mille mots, découvrez mes réalisations ci-dessous</p>
-        <button class="btn btn-success" type="submit">mes projets</button>
+    <img class="quote-left" src="{{ asset('build/images/quoteopen.png') }}" alt="quote"/>
+        <h1 class=" mt-4 mb-4">Hello !</h1>
+        <h4>Je suis Léa Hadida</h4>
+        <h4>Développeuse Full Stack</h4>
+        <h5 class="mt-4">Mes atouts</h5>
+        <ul>
+            <li>Communication et gestion de projets</li>
+            <li>Organisation</li>
+            <li>Rigueur</li>
+            <li>Esprit d'équipe</li>
+        </ul>
+        <div class="d-flex justify-content-end">
+            <img class="quote-right" src="{{ asset('build/images/quoteclose.png') }}" alt="quote"/>
+        </div>
+            <h6 class="mt-5">Parce qu'un repo vaut mille mots</h6>
+            <h6> découvrez mes réalisations ci-dessous</h6>
+        <button class="btn btn-info mt-2" type="submit">mes projets</button>
+    
+        {% include 'component/_verticalNavbar.html.twig'%}
     </div>
-{% include 'component/_verticalNavbar.html.twig'%}
 </div>
+

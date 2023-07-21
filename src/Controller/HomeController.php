@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Entity\Project;
 use App\Form\ContactType;
+use App\Form\SkillsFilterType;
 use App\Repository\ProjectRepository;
+use App\Repository\SkillRepository;
 use App\Service\FortuneCookie;
 use App\Service\FortuneCookies;
 use App\Service\GithubData;
@@ -26,7 +29,19 @@ class HomeController extends AbstractController
         GithubData $github,
         FortuneCookie $fortuneCookie,
         ProjectRepository $projectRepository,
+        SkillRepository $skillRepository,
     ): Response {
+        $SearchBySkills = $this->createForm(SkillsFilterType::class, null, ['method' => 'GET']);
+        $SearchBySkills->handleRequest($request);
+
+        $projects = $projectRepository->findAll(['id'=>'DESC']);
+
+        // if ($SearchBySkills ->isSubmitted() && $SearchBySkills->isValid()) {
+        //     $search = $SearchBySkills->getData();
+        //     $projects = $skillRepository->findSkills($search);
+        // }
+
+        //Contact Form
         $contact = new Contact();
 
         $form = $this->createForm(ContactType::class, $contact);
@@ -51,15 +66,15 @@ class HomeController extends AbstractController
                 'Votre message a été envoyé avec succès !'
             );
 
-            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('home', ['contact_form' => $form ], Response::HTTP_SEE_OTHER);
         }
-
+        
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
-            'form' => $form->createView(),
+            'projects' => $projects,
+            'skills_form' => $SearchBySkills,
+            'contact_form' => $form->createView(),
             'github_contributions' => $github->getTotalContributions(),
-            'fortune_cookie' => $fortuneCookie->getMessage(),
-            'projects' => $projectRepository->findAll()
+            'fortune_cookie' => $fortuneCookie->getMessage()
         ]);
     }
 }

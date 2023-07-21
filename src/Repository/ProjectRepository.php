@@ -21,6 +21,10 @@ class ProjectRepository extends ServiceEntityRepository
         parent::__construct($registry, Project::class);
     }
 
+    public function findAll(array $orderBy = null)
+    {
+        return $this->findBy([], $orderBy);
+    }
 //    /**
 //     * @return Project[] Returns an array of Project objects
 //     */

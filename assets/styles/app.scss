@@ -3,6 +3,7 @@
 $primary: #CBDDD1;
 $secondary: #CDC2FE;
 $green: #004B35;
+$info: #394188;
 
 $font-family-base:'Montserrat', sans-serif;
 $body-bg: $primary;
@@ -13,10 +14,35 @@ $link-color: $green;
 $input-border-color: $green;
 $link-decoration:none;
 
+ul {
+    list-style-type: none
+}
+
+//header
 #header {
     background-color: $secondary;
     color:#2f05eaa6;
-    height:50rem;
+    height:38rem;
+    padding-top: 3rem;
+}
+
+#header img.quote-left {
+    position: absolute;
+    height: 1.5em;
+    margin-left: -9.35em;
+    font-size: 2em;
+}
+
+#header img.quote-right {
+    position: absolute;
+    height: 1.5em;
+    font-size: 2em;
+    margin-right: 12em;
+    margin-top: -1.2em;
+}
+
+#header li {
+    font-size: 19px;
 }
 
 //project cards
@@ -49,10 +75,13 @@ $link-decoration:none;
     transform: scale(1.1);
 }
 
+#fortune-cookie img {
+    width: 5%;
+}
+
 #contact-form {
     margin: 0 auto;
 }
-
 
 //admin form
 .margin {

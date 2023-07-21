@@ -1,17 +1,18 @@
-<a class="clickable-card" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-title={{ project.title }} data-bs-description={{ project.description }}>
-    <div class="col">
-        <div class="card text-center h-100">
-                <img src="{{ vich_uploader_asset(project, 'pictureFile') }}" class="card-img-top" alt="project-picture">
-            <div class="card-body">
-                <div class="card-text mt-2">
-                    <h6>{{ project.title }}</h6>
+
+    <a class="clickable-card" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-title={{ project.title }} data-bs-description={{ project.description }}>
+        <div class="col">
+            <div class="card text-center h-100">
+                    <img src="{{ vich_uploader_asset(project, 'pictureFile') }}" class="card-img-top" alt="project-picture">
+                <div class="card-body">
+                    <div class="card-text mt-2">
+                        <h6>{{ project.title }}</h6>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</a>
+    </a>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
             <div class="modal-header">
@@ -24,6 +25,7 @@
             </div>
         </div>
     </div>
+{# </div> #}
 
 <script>
     const exampleModal = document.getElementById('exampleModal')
