@@ -1,17 +1,17 @@
 <div class="nav">
-    <li class="nav-item">
+    <li class="nav-item" id="github">
         <a target="_blank" class="nav-link" href="https://github.com/leahad">
-            <img class=""src="{{ asset('build/images/github.svg') }}" alt="github"/>
+            <img class="filter-white mb-1"src="{{ asset('build/images/github.svg') }}" alt="github"/>
         </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" id="linkedin">
         <a target="_blank" class="nav-link" href="https://www.linkedin.com/in/leahadida/">
-            <img class=""src="{{ asset('build/images/linkedin.svg') }}" alt="linkdein"/>
+            <img class="filter-white"src="{{ asset('build/images/linkedin.svg') }}" alt="linkdein"/>
         </a>
     </li>
     <li class="nav-item">
         <a data-bs-toggle="modal" class="nav-link" data-bs-target="#cv">
-            <img class="mt-1" src="{{ asset('build/images/CV-picto.svg') }}" alt="linkdein"/>
+            <img id="cvLH" class="filter-white mt-1" src="{{ asset('build/images/CV-picto.svg') }}" alt="linkdein"/>
         </a>
         {% include 'home/section/_modalResume.html.twig' %}
     </li>

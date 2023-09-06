@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
 
 $primary: #CBDDD1;
 $secondary: #CDC2FE;
@@ -10,39 +11,123 @@ $body-bg: $primary;
 $card-border-width: 0;
 $card-inner-border-radius: 0;
 $link-color: $green;
+$card-spacer-y: 0;
 
 $input-border-color: $green;
 $link-decoration:none;
 
+$paragraph-margin-bottom: 0;
+
 ul {
     list-style-type: none
+}
+
+.filter-white {
+    filter: invert(100%) sepia(0%) saturate(7458%) hue-rotate(335deg) brightness(88%) contrast(123%);
+}
+
+.down {
+    animation-name:down;
+	animation-duration:2s;
+}
+
+.up {
+    animation-name:up;
+	animation-duration:2s;
+}
+
+@keyframes slideToLeft {
+    from {
+        transform: translate(500px);
+    }
+    to {
+        transform: translate(0px);
+    }
+}
+
+@keyframes slideToRight {
+    from {
+        transform: translate(-500px);
+    }
+    to {
+        transform: translate(0px);
+    }
+}
+
+@keyframes down {
+    from {
+        transform: translate(0px,-500px);
+    }
+    to {
+        transform: translate(0px, 0px,);
+    }
+}
+
+@keyframes up {
+    from {
+        transform: translate(0px,500px);
+    }
+    to {
+        transform: translate(0px, 0px,);
+    }
 }
 
 //header
 #header {
     background-color: $secondary;
     color:#2f05eaa6;
-    height:38rem;
     padding-top: 3rem;
 }
 
 #header img.quote-left {
-    position: absolute;
-    height: 1.5em;
-    margin-left: -9.35em;
-    font-size: 2em;
+    height: 5.5em;
+    margin-top: -2em;
+    animation-name:slideToRight;
+	animation-duration:2s;
 }
 
 #header img.quote-right {
-    position: absolute;
-    height: 1.5em;
-    font-size: 2em;
-    margin-right: 12em;
-    margin-top: -1.2em;
+    height: 5.5em;
+    margin-bottom: -4.2em;
+    animation-name:slideToLeft;
+	animation-duration:2s;
 }
 
-#header li {
-    font-size: 19px;
+#header img.right-form {
+    height: 37em;
+    margin-top: -39.9em;
+    margin-right: -17rem;
+    animation-name:slideToLeft;
+	animation-duration:2s;
+}
+
+#header img.left-form {
+    height: 14em;
+    margin-top: -9.9em;
+    margin-left: -4em;
+    animation-name:slideToRight;
+	animation-duration:2s;
+}
+
+#header h2,
+#atouts {
+    font-family:'Libre Baskerville', serif;
+}
+
+#header .nav {
+    margin-top: -6rem;
+    animation-name:slideToRight;
+	animation-duration:2s;
+}
+
+#linkedin:hover,
+#github:hover,
+#cvLH:hover {
+    animation: bounce 1s ease-in-out infinite alternate;
+}
+
+#github {
+    margin-top: -0.2rem;
 }
 
 //project cards
@@ -70,13 +155,66 @@ ul {
     color: $green;
 }
 
-.clickable-card:hover img,
-.clickable-card:focus img {
+.clickable-card:hover,
+.clickable-card:focus {
     transform: scale(1.1);
 }
 
 #fortune-cookie img {
     width: 5%;
+}
+
+//tooltip
+#fortune-cookie {
+    transition: all 0.3s ease-in-out;
+}
+
+#fortune-cookie:hover {
+    transform: translateY(-7px);  
+}
+
+#fortune-cookie .tooltip {
+    visibility: hidden;
+    z-index: 1;
+    opacity: .40;
+    width: 40%;
+    padding: 0px 20px;
+    background: $secondary;
+    color: $info;
+    position: absolute;
+    top:-130%;
+    border-radius: 9px;
+    font-size: 16px;
+    font-family:'Libre Baskerville', serif;
+    transform: translateY(9px);
+}
+
+#fortune-cookie .tooltip::after {
+    content: " ";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 30px 30.5px 0 30.5px;
+    border-color: $secondary transparent transparent transparent;
+    position: absolute;
+    left: 45%;
+}
+
+#fortune-cookie:hover .tooltip{
+    visibility: visible;
+    transform: translateY(-10px);
+    opacity: 1;
+    animation: bounce 1s ease-in-out infinite alternate;
+}
+
+@keyframes bounce {
+    0%{
+        transform: translateY(6px);	
+    }
+
+    100%{
+        transform: translateY(1px);	
+    }
 }
 
 #contact-form {
@@ -88,7 +226,7 @@ ul {
     margin: 0 auto;
     max-width: 1400px;
     width: 100%;
-    padding: 1.5rem;
+    padding: 0.9rem;
 }
 
 .dropzone-placeholder,
