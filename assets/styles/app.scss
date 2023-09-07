@@ -17,13 +17,10 @@ $input-border-color: $green;
 $link-decoration:none;
 
 $paragraph-margin-bottom: 0;
+$grid-gutter-width: 0;
 
 ul {
     list-style-type: none
-}
-
-.filter-white {
-    filter: invert(100%) sepia(0%) saturate(7458%) hue-rotate(335deg) brightness(88%) contrast(123%);
 }
 
 .down {
@@ -88,15 +85,14 @@ ul {
 
 #header img.quote-right {
     height: 5.5em;
+    margin-left: -2.2rem;
     margin-bottom: -4.2em;
     animation-name:slideToLeft;
 	animation-duration:2s;
 }
 
 #header img.right-form {
-    height: 37em;
     margin-top: -39.9em;
-    margin-right: -17rem;
     animation-name:slideToLeft;
 	animation-duration:2s;
 }
@@ -114,20 +110,22 @@ ul {
     font-family:'Libre Baskerville', serif;
 }
 
-#header .nav {
+#nav-desktop {
     margin-top: -6rem;
     animation-name:slideToRight;
 	animation-duration:2s;
 }
 
-#linkedin:hover,
-#github:hover,
-#cvLH:hover {
-    animation: bounce 1s ease-in-out infinite alternate;
+#nav-desktop #github {
+    margin-top: -0.2rem;
 }
 
-#github {
-    margin-top: -0.2rem;
+#nav-mobile {
+    margin-top: -9rem;
+}
+
+#nav-mobile #github {
+    margin-left: -0.3rem;
 }
 
 //project cards
@@ -245,6 +243,60 @@ ul {
 .dropzone-preview-image {
     min-width: 130px;
     height: 130px;
+}
+
+@media (min-width: 1450px) {
+    #header img.right-form {
+        height: 30em;
+    }
+
+}
+
+@media (max-width: 1449px) {
+    #header img.right-form {
+        height: 20.5em;
+    }
+}
+
+@media (min-width: 724px) {
+    .color-filter {
+        filter: invert(100%) sepia(0%) saturate(7458%) hue-rotate(335deg) brightness(88%) contrast(123%);
+    }
+
+    #linkedin:hover,
+    #github:hover,
+    #cvLH:hover {
+        animation: bounce 1s ease-in-out infinite alternate;
+    }
+}
+
+@media (max-width: 723px) {
+    .color-filter {
+        filter: invert(24%) sepia(13%) saturate(3033%) hue-rotate(197deg) brightness(103%) contrast(94%);
+    }
+
+    #header img.right-form,
+    #header img.left-form {
+        display:none;
+    }
+
+    #header {
+        height: 32.6em;
+    }
+}
+
+@media (min-width: 627px) {
+    #nav-mobile {
+        display:none;
+    }
+}
+
+@media (max-width: 626px) {
+    #header img.quote-right,
+    #header img.quote-left,
+    #nav-desktop {
+        display:none;
+    }
 }
 
 @import "~bootstrap/scss/bootstrap";
