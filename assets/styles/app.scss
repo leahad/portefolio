@@ -85,7 +85,9 @@ ul {
 
 #header img.quote-right {
     height: 5.5em;
-    margin-left: -2.2rem;
+    margin-left: -2.3rem;
+
+
     margin-bottom: -4.2em;
     animation-name:slideToLeft;
 	animation-duration:2s;
@@ -297,6 +299,34 @@ ul {
     #nav-desktop {
         display:none;
     }
+
+    #header h2 {
+        font-size: 24px;
+    }
+
+    #header h3 {
+        font-size: 22px;
+    }
+
+    #header h5 {
+        font-size: 18px;
+    }
+
+}
+
+@media (max-width: 385px) {
+    #header h2 {
+        font-size: 22px;
+    }
+
+    #header h3 {
+        font-size: 20px;
+    }
+
+    #header h5 {
+        font-size: 16px;
+    }
+
 }
 
 @import "~bootstrap/scss/bootstrap";
