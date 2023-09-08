@@ -1,49 +1,26 @@
-    <a class="clickable-card" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-title={{ project.title }} data-bs-description={{ project.description }}>
-        <div class="col">
-            <div class="card text-center h-100">
-                    <img src="{{ vich_uploader_asset(project, 'pictureFile') }}" class="card-img-top" alt="project-picture">
-                <div class="card-body">
-                    <div class="card-text mt-2">
-                        <h6>{{ project.title }}</h6>
-                    </div>
+<a class="clickable-card" data-bs-toggle="modal" data-bs-target="#{{ project.id }}" data-bs-title={{ project.title }} data-bs-description={{ project.description }}>
+    <div class="col">
+        <div class="card text-center h-100">
+                <img src="{{ vich_uploader_asset(project, 'pictureFile') }}" class="card-img-top" alt="project-picture">
+            <div class="card-body">
+                <div class="card-text mt-2">
+                    <h6>{{ project.title }}</h6>
                 </div>
             </div>
         </div>
-    </a>
+    </div>
+</a>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel"> {{ project.title }}</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                {{ project.description }}
-            </div>
-            </div>
+<div class="modal fade" id="{{ project.id }}" tabindex="-1" aria-labelledby="{{ project.id }}Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="{{ project.id }}Label"> {{ project.title }}</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            {{ project.description }}
+        </div>
         </div>
     </div>
-{# </div> #}
-
-<script>
-    const exampleModal = document.getElementById('exampleModal')
-    if (exampleModal) {
-        exampleModal.addEventListener('show.bs.modal', event => {
-            // Button that triggered the modal
-            const a = event.relatedTarget
-            // Extract info from data-bs-* attributes
-            const title = a.getAttribute('data-bs-title')
-            const description = a.getAttribute('data-bs-description')
-            // If necessary, you could initiate an Ajax request here
-            // and then do the updating in a callback.
-
-            // Update the modal's content.
-            const modalTitle = exampleModal.querySelector('.modal-title')
-            const modalBody = exampleModal.querySelector('.modal-body')
-
-            modalTitle.textContent = `${title}`
-            modalBody.textConten = `${description}`
-        })
-    }
-</script>
+</div>
