@@ -1785,6 +1785,11 @@ ci-info@^3.2.0:
   resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-3.8.0.tgz#81408265a5380c929f0bc665d62256628ce9ef91"
   integrity sha512-eXTggHWSooYhq49F2opQhuHWgzucfF2YgODK4e1566GQs5BIfP30B0oenwBJHfWxAs2fyPB1s7Mg949zLf61Yw==
 
+ckeditor4@^4.13.0:
+  version "4.23.0"
+  resolved "https://registry.yarnpkg.com/ckeditor4/-/ckeditor4-4.23.0.tgz#c0c3bc4e2a66ada6010b89466a41b09202f7bb7a"
+  integrity sha512-K9DUzTa7roj8JffKLm6nOxDF02aPURDK8m7oFibvvkyAaomj24qOgpVdt7yvszmIubeJLbAB6q4k7Euk8jzD1A==
+
 clean-webpack-plugin@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/clean-webpack-plugin/-/clean-webpack-plugin-4.0.0.tgz#72947d4403d452f38ed61a9ff0ada8122aacd729"

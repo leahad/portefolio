@@ -11,21 +11,13 @@ use Doctrine\ORM\Mapping as ORM;
 class Skill
 {
     public const SKILLS = 
-    [   "Figma", 
-        "HTML", 
-        "CSS", 
+    [   "Bootstrap",
         "JavaScript",
-        "Twig", 
         "Pico", 
-        "Bootsrap", 
         "PHP", 
-        "Symfony",  
-        "Composer", 
-        "Yarn",
-        "SQL",
-        "PDO",  
-        "Git", 
-        "Github",
+        "SCSS",  
+        "Symfony",
+        "Twig",
     ];
 
     #[ORM\Id]

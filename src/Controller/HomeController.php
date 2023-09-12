@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 class HomeController extends AbstractController
 {
@@ -29,17 +30,23 @@ class HomeController extends AbstractController
         GithubData $github,
         FortuneCookie $fortuneCookie,
         ProjectRepository $projectRepository,
-        SkillRepository $skillRepository,
+        PaginatorInterface $paginator,
     ): Response {
         $SearchBySkills = $this->createForm(SkillsFilterType::class, null, ['method' => 'GET']);
         $SearchBySkills->handleRequest($request);
 
-        $projects = $projectRepository->findAll(['id'=>'DESC']);
+        $projects = $paginator->paginate(
+            $projectRepository->findAll(['id'=>'DESC']), 
+            $request->query->getInt('page', 1), 4
+        );
 
-        // if ($SearchBySkills ->isSubmitted() && $SearchBySkills->isValid()) {
-        //     $search = $SearchBySkills->getData();
-        //     $projects = $skillRepository->findSkills($search);
-        // }
+        if ($SearchBySkills ->isSubmitted() && $SearchBySkills->isValid()) {
+            $search = $SearchBySkills->getData();
+            $projects = $paginator->paginate(
+                $projectRepository->findSkills($search),
+                $request->query->getInt('page', 1), 4
+            );
+        }
 
         //Contact Form
         $contact = new Contact();

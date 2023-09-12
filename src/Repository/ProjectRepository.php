@@ -25,28 +25,22 @@ class ProjectRepository extends ServiceEntityRepository
     {
         return $this->findBy([], $orderBy);
     }
-//    /**
-//     * @return Project[] Returns an array of Project objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
 
-//    public function findOneBySomeField($value): ?Project
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findSkills(array $search): ?array
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+        ->select('p', 's')
+        ->join('p.skills', 's');
+
+        if (!empty($search['skills'])) {
+            $queryBuilder = $queryBuilder
+                ->andWhere(':skills MEMBER OF p.skills')
+                ->setParameter('skills', $search['skills']);
+        }
+
+        $queryBuilder = $queryBuilder
+            ->orderBy('p.createdAt', 'DESC')
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
 }

@@ -19,6 +19,18 @@ $link-decoration:none;
 $paragraph-margin-bottom: 0;
 $grid-gutter-width: 0;
 
+$border-radius-sm: 1rem;
+$link-color: $info;
+$pagination-bg: $secondary;
+$pagination-border-color: none;
+$pagination-active-bg: $info;
+$pagination-active-border-color: $info;
+$pagination-hover-bg: $info;
+$pagination-hover-color: white;
+$pagination-hover-border-color: $info;
+$pagination-padding-x-sm: 0.8rem;
+$pagination-padding-y-sm: 0.4rem;
+
 ul {
     list-style-type: none
 }
@@ -160,11 +172,37 @@ ul {
     transform: scale(1.1);
 }
 
+//pagination
+.pagination {
+    margin-top: 3rem;  
+    margin-bottom: -3rem;
+}
+
+//contact
+#contact,
+#cookie {
+    background-color: $green;
+    color: white;
+}
+
+#contact {
+    padding-bottom: 0.1rem;
+}
+
+#contact-form {
+    margin: 0 auto;
+}
+
+#contact-img {
+    width: 100%;
+    margin-bottom: -9rem;
+}
+
+//tooltip
 #fortune-cookie img {
     width: 5%;
 }
 
-//tooltip
 #fortune-cookie {
     transition: all 0.3s ease-in-out;
 }
@@ -182,7 +220,7 @@ ul {
     background: $secondary;
     color: $info;
     position: absolute;
-    top:-130%;
+    top: -60%;
     border-radius: 9px;
     font-size: 16px;
     font-family:'Libre Baskerville', serif;
@@ -215,10 +253,6 @@ ul {
     100%{
         transform: translateY(1px);	
     }
-}
-
-#contact-form {
-    margin: 0 auto;
 }
 
 //admin form
@@ -330,4 +364,3 @@ ul {
 }
 
 @import "~bootstrap/scss/bootstrap";
-

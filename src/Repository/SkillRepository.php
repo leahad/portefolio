@@ -20,24 +20,4 @@ class SkillRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Skill::class);
     }
-
-    public function findSkills(array $search, $project): ?array
-    {
-        $queryBuilder = $this->createQueryBuilder('s')
-        ->select('s', 'p')
-        ->join('s.project', 'p')
-        ->where('s.id == ' . $project->getId());
-
-        if (!empty($search['skills'])) {
-            $queryBuilder = $queryBuilder
-                ->andWhere('p.skills IN (:skills)')
-                ->setParameter('skills', $search['skills']);
-        }
-
-        $queryBuilder = $queryBuilder
-            ->orderBy('p.createdAt', 'DESC')
-            ->getQuery();
-
-        return $queryBuilder->getResult();
-    }
 }

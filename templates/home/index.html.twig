@@ -20,17 +20,27 @@
                         {% include 'home/section/_projectCard.html.twig'%}
                     {% endfor %}
                 </div>
+                <div class="mt-4">
+                    {{ knp_pagination_render(projects, null, {}, {
+                        'align': 'center',
+                        'size': 'small',
+                    }) }}
+                </div>
             </div>
         </div>
-
-        <div id="contact-form" class="col-md-6 col-xl-5 col-xxl-4 mb-5">
-            {% include 'home/section/_contactForm.html.twig'%}
+        <img id="contact-img" src="{{ asset('build/images/form5.png') }}" alt="form"/>
+        <div id="contact">
+            <div id="contact-form" class="col-md-6 col-xl-5 col-xxl-4 mb-5">
+                {% include 'home/section/_contactForm.html.twig'%}
+            </div>
         </div>
-        <h6 class="text-center mb-5">Un cookie pour la route ?</h6>
-        <div id="fortune-cookie" class="d-flex justify-content-center mb-5">
-            <img src="{{ asset('build/images/fortune-cookies.png') }}" alt="fortune-cookie"/>
-            <div class="tooltip p-3">
-                <p class="text-center fst-italic">{{ fortune_cookie }}</p>
+        <div id="cookie">
+            <h6 class="text-center p-2">Un cookie pour la route ?</h6>
+            <div id="fortune-cookie" class="d-flex justify-content-center">
+                <img class="pb-4 pt-4" src="{{ asset('build/images/fortune-cookies.png') }}" alt="fortune-cookie"/>
+                <div class="tooltip p-3">
+                    <p class="text-center fst-italic">{{ fortune_cookie }}</p>
+                </div>
             </div>
         </div>
     </div>

@@ -73,15 +73,20 @@ class ProjectType extends AbstractType
                     'placeholder' => 'Drag and drop a file or click to browse',
                 ],
             ])
+            ->add('video', UrlType::class, [
+                'label' => false,
+                'attr' => [
+                    'class' => 'form-control mt-4',
+                    'placeholder' => 'Demo Link',
+                ],
+            ])
             ->add('github', UrlType::class, [
                 'label' => false,
                 'attr' => [
                     'class' => 'form-control mt-4',
                     'placeholder' => 'Github Link',
                 ],
-            ])
-            // ->add('video')
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
