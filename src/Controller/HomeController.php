@@ -19,10 +19,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
+use Symfony\UX\Chartjs\Model\Chart;
 
 class HomeController extends AbstractController
 {
-    #[Route('/', name: 'home')]
+    #[Route('/', name: 'home', methods: ['GET'])]
     public function index(
         Request $request, 
         EntityManagerInterface $manager, 
@@ -31,6 +33,7 @@ class HomeController extends AbstractController
         FortuneCookie $fortuneCookie,
         ProjectRepository $projectRepository,
         PaginatorInterface $paginator,
+        ChartBuilderInterface $chartBuilder,
     ): Response {
         $SearchBySkills = $this->createForm(SkillsFilterType::class, null, ['method' => 'GET']);
         $SearchBySkills->handleRequest($request);
@@ -47,6 +50,47 @@ class HomeController extends AbstractController
                 $request->query->getInt('page', 1), 4
             );
         }
+
+        //Projects
+        $chart = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
+
+        $languages = array_keys($github->getLanguages());
+        $bytes = array_values($github->getLanguages());
+
+        $chart->setData([
+            'labels' => array_splice($languages,0,-2),
+            'datasets' => [
+                [
+                    'label' => 'My First dataset',
+                    'backgroundColor' =>  [
+                        '#394188',
+                        '#2f05eaa6',
+                        '#CDC2FE',
+                        '#004B35'
+                    ],
+                    'borderColor' =>  [
+                        '#394188',
+                        '#2f05eaa6',
+                        '#CDC2FE',
+                        '#004B35'
+                    ],
+                    'data' => array_splice($bytes,0,-2),
+                ],
+            ],
+        ]);
+
+        $chart->setOptions([
+            'plugins' => [
+                'title' => [
+                    'display' => false,
+                ]
+            ],
+            'plugins' => [
+                'legend' => [
+                    'display' => false,
+                ]
+            ]
+        ]);
 
         //Contact Form
         $contact = new Contact();
@@ -81,7 +125,9 @@ class HomeController extends AbstractController
             'skills_form' => $SearchBySkills,
             'contact_form' => $form->createView(),
             'github_contributions' => $github->getTotalContributions(),
-            'fortune_cookie' => $fortuneCookie->getMessage()
+            // 'languages' => $github->getLanguages(),
+            'fortune_cookie' => $fortuneCookie->getMessage(),
+            // 'chart' => $chart,
         ]);
     }
 }
