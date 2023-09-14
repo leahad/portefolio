@@ -5,6 +5,10 @@ $primary: #CBDDD1;
 $secondary: #CDC2FE;
 $green: #004B35;
 $info: #394188;
+$warning: #AEC3AE;
+$success:#BBD6B8;
+$danger:  #94AF9F;
+$light: #DBE4C6;
 
 $font-family-base:'Montserrat', sans-serif;
 $body-bg: $primary;
@@ -31,9 +35,10 @@ $pagination-hover-border-color: $info;
 $pagination-padding-x-sm: 0.8rem;
 $pagination-padding-y-sm: 0.4rem;
 
-ul {
-    list-style-type: none
-}
+$list-group-border-color: none;
+
+$list-group-item-padding-x:0;
+$list-group-item-padding-y:0;
 
 .down {
     animation-name:down;
@@ -172,6 +177,22 @@ ul {
     transform: scale(1.1);
 }
 
+//project modal content
+#skills {
+    display: list-item;
+    margin-left: 0.8rem;
+    margin-right: 1rem;
+    margin-top: -0.2rem;
+}
+
+#mobile-skills{
+    padding-left: 0;
+}
+
+.progress-stacked {
+    margin-top: 0.2rem;
+}
+
 //pagination
 .pagination {
     margin-top: 3rem;  
@@ -294,6 +315,12 @@ ul {
     }
 }
 
+@media (min-width: 992px) {
+    #languages {
+        max-width: 13%;
+    }
+}
+
 @media (min-width: 724px) {
     .color-filter {
         filter: invert(100%) sepia(0%) saturate(7458%) hue-rotate(335deg) brightness(88%) contrast(123%);
@@ -325,6 +352,10 @@ ul {
     #nav-mobile {
         display:none;
     }
+
+    #mobile-skills {
+    display:none;
+    }
 }
 
 @media (max-width: 626px) {
@@ -346,6 +377,13 @@ ul {
         font-size: 18px;
     }
 
+    #desktop-skills {
+        display:none;
+    }
+
+    .modal-body .col-lg-11 {
+    margin-bottom: -0.5rem;
+    }
 }
 
 @media (max-width: 385px) {

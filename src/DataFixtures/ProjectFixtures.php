@@ -16,13 +16,16 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
         foreach (Project::PROJECTS as $key => $value) {
 
             $project = new Project();
-            
             $project->setTitle($value["title"])
             ->setCreatedAt(new DateTimeImmutable($value["createdAt"]))
             ->setDuration($value["duration"])
             ->setDescription($value["description"])
             ->setGithub($value["github"])
-            ->setPicture($value["picture"]);
+            ->setPicture($value["picture"])
+            ->setVideo($value["video"])
+            ->setCommits($value["commits"])
+            ->setMockup($value["mockup"])
+            ->setlink($value["link"]);
             foreach (Skill::SKILLS as $skill) {
                 if (in_array($skill, $value['skills'])) {
                     $project->addSkill($this->getReference('skill_' . $skill));

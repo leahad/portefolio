@@ -35,6 +35,7 @@ class HomeController extends AbstractController
         PaginatorInterface $paginator,
         ChartBuilderInterface $chartBuilder,
     ): Response {
+        //Projects Display
         $SearchBySkills = $this->createForm(SkillsFilterType::class, null, ['method' => 'GET']);
         $SearchBySkills->handleRequest($request);
 
@@ -51,46 +52,8 @@ class HomeController extends AbstractController
             );
         }
 
-        //Projects
-        $chart = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
-
-        $languages = array_keys($github->getLanguages());
-        $bytes = array_values($github->getLanguages());
-
-        $chart->setData([
-            'labels' => array_splice($languages,0,-2),
-            'datasets' => [
-                [
-                    'label' => 'My First dataset',
-                    'backgroundColor' =>  [
-                        '#394188',
-                        '#2f05eaa6',
-                        '#CDC2FE',
-                        '#004B35'
-                    ],
-                    'borderColor' =>  [
-                        '#394188',
-                        '#2f05eaa6',
-                        '#CDC2FE',
-                        '#004B35'
-                    ],
-                    'data' => array_splice($bytes,0,-2),
-                ],
-            ],
-        ]);
-
-        $chart->setOptions([
-            'plugins' => [
-                'title' => [
-                    'display' => false,
-                ]
-            ],
-            'plugins' => [
-                'legend' => [
-                    'display' => false,
-                ]
-            ]
-        ]);
+        //Modal content
+        // $languages = array_keys($github->getLanguages());
 
         //Contact Form
         $contact = new Contact();
@@ -124,10 +87,10 @@ class HomeController extends AbstractController
             'projects' => $projects,
             'skills_form' => $SearchBySkills,
             'contact_form' => $form->createView(),
-            'github_contributions' => $github->getTotalContributions(),
-            // 'languages' => $github->getLanguages(),
+            // 'github_contributions' => $github->getTotalContributions(),
+            'languages' => array_keys($github->getLanguages()),
+            'bytes' => $github->getBytesPercentage(),
             'fortune_cookie' => $fortuneCookie->getMessage(),
-            // 'chart' => $chart,
         ]);
     }
 }

@@ -16,26 +16,53 @@ class GithubData
         $this->projectRepository = $projectRepository;
     }
 
-    public function getTotalContributions()
-    {
-        $response = $this->client->request('GET', 'https://github-contributions-api.deno.dev/leahad.json');
+    // public function getTotalContributions()
+    // {
+    //     $response = $this->client->request('GET', 'https://github-contributions-api.deno.dev/leahad.json');
 
-        $contributions = $response->toArray();
+    //     $contributions = $response->toArray();
     
-        return $contributions['totalContributions'];
-    }
+    //     return $contributions['totalContributions'];
+    // }
 
     public function getLanguages()
     {
         $projects =  $this->projectRepository->findAll();
+        $projectLanguages = [];
+        
+
         foreach ($projects as $project) {
             $github = parse_url($project->getGithub());
+            if (strpos($github['path'], 'git') == true) {
+                $path = explode(".", $github['path']);
+                $response = $this->client->request('GET', 'https://api.github.com/repos' . $path[0] . '/languages');
+            } else {
+                $response = $this->client->request('GET', 'https://api.github.com/repos' . $github['path'] . '/languages');
+            }
+        
+            // $languages = array_splice($array,0,-2);
+            // $language = implode(" - ", array_keys($newArray));
+            // if (($key = array_search('Dockerfile', $languages)) !== false) {
+            //     unset($languages[$key]);
+            // }
+            $languages = $response->toArray();
+            $projectLanguages[$project->getId()] = $languages;
+        
         }
+        return $projectLanguages;
+    }
+    
 
-        $response = $this->client->request('GET', 'https://api.github.com/repos' . $github['path'] . '/languages');
-        $languages = $response->toArray();
-        // $newArray = array_splice($languages,0,-2);
-        // $language = implode(" - ", array_keys($newArray));
-        // return $languages;
+    public function getBytesPercentage()
+    {
+        $bytes = array_values($this->getLanguages());
+        $bytesPercent = [];
+        foreach  ($bytes as $projectBytes) {
+            $sumBytes = array_sum($projectBytes);
+            foreach ($projectBytes as $byte) {
+                $bytesPercent[] = round(($byte * 100) / $sumBytes);
+            }
+        }
+        return $bytesPercent;
     }
 }

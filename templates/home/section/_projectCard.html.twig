@@ -19,17 +19,64 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {{ project.description|raw }}
-                <h6> Durée : {{ project.duration }} </h6>
-                {# <h6> Langages : {{ languages }} </h6> #}
-                <div class="d-flex justify-content-end">
-                <div class="mb-4" style="height: 150px; width:150px;">
-                    {# {{ render_chart(chart) }} #}
+                <div class="mb-4">{{ project.description|raw }}</div>
+                {% if project.mockup is not empty %}
+                    <h6><strong> Maquette </strong> <a href="{{ project.mockup }}" target="_blank"><img src="{{ asset('build/images/link.png') }}" alt="link-picto"/></a></h6>
+                {% endif %}
+                <h6><strong> Durée : </strong> {{ project.duration }}</h6>
+                <div class="row">
+                    <div class="col-lg-1">
+                        <h6><strong> Skills : </strong></h6>
+                    </div>
+                    <div class="col-lg-11">
+                        <ul id="desktop-skills" class="list-group list-group-horizontal mb-2">
+                            {% for skill in project.skills %}
+                                <li  id="skills" class="list-group-item">{{ skill.name }}</li> 
+                            {% endfor %}
+                        </ul>
+                        <ul id="mobile-skills">
+                            {% for skill in project.skills %}
+                                <li  id="skills">{{ skill.name }}</li> 
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
+                {% if project.commits is not empty or project.commits > 0 %}
+                <h6><strong> Commits : </strong> {{ project.commits }}</h6>
+                {% endif %}
+                <div class="row">
+                    <div id="languages" class="col-lg-2">
+                        <h6><strong> Langages : </strong></h6>
+                    </div>
+                    {{ dump(languages) }}
+                    {{ dump(bytes) }}
+                    <div class="col-lg-10">
+                        <div class="progress-stacked mb-4">
+                            <div class="progress" role="progressbar" aria-label="Segment one" aria-valuenow="{{ bytes[0] }}" aria-valuemin="0" aria-valuemax="100" style="width: 49.5%">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger">{{ languages[0] }}</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Segment two" aria-valuenow="{{ bytes[1] }}" aria-valuemin="0" aria-valuemax="100" style="width: 40.2%">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning">{{ languages[1] }}</div>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Segment three" aria-valuenow="8" aria-valuemin="{{ bytes[2] }}" aria-valuemax="100" style="width: 8%">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success">{{ languages[2] }}</div>
+                            </div>
+                            {% if languages[3] is defined %}
+                                <div class="progress" role="progressbar" aria-label="Segment four" aria-valuenow="1.5" aria-valuemin="{{ bytes[3] }}" aria-valuemax="100" style="width: 1.5%">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-light">{{ languages[3] }}</div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
-                <div class="text-center" style="position: relative; padding-bottom: 56.25%; height: 0; margin: 0 auto;">
-                    <iframe src="{{ project.video }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
-                </div>
+                {% if project.video is not empty %}
+                    <div class="text-center" style="position: relative; padding-bottom: 56.25%; height: 0; margin: 0 auto;">
+                        <iframe src="{{ project.video }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                    </div>
+                {% endif %}
+                {% if project.link is not empty %}
+                    <a href="{{ project.link }}" target="_blank" class="btn active" role="button" data-bs-toggle="button" aria-pressed="true">Accéder au site</a>
+                {% endif %}
             </div> 
         </div>
     </div>

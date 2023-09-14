@@ -23,37 +23,53 @@ class Project
         "title"=> "CV de Hermione Granger", 
         "createdAt"=> "2023-03-07", 
         "duration" => "2 weeks", 
-        "description" => "réaliser le CV d'un personnage fictif", 
+        "description" => "réaliser le CV d'un personnage fictif",
+        "mockup" => "",
         "skills" => ["Figma", "HTML" , "CSS" , "JavaScript"], 
-        "github" =>"https://alexandre78r.github.io/CV-Hermione/", 
-        "picture" => "CV-Hermione.jpg",
+        "commits" => 149,
+        "github" => "https://github.com/Alexandre78R/CV-Hermione.git", 
+        "picture" => "CV-Hermione.png",
+        "video" => "",
+        "link" => "https://alexandre78r.github.io/CV-Hermione/",
     ],
     [
         "title"=> "E-stoire", 
         "createdAt"=> "2023-04-05", 
         "duration" => "1 mois", 
         "description" => "plateforme collaborative de création d'histoires", 
-        "skills" => ["Figma", "HTML", "CSS", "JavaScript", "Twig", "Pico", "PHP", "PDO"], 
+        "mockup" => "https://www.figma.com/file/EYlWCKe1G4c8EGyg4NcYNE/e-stoires?type=design&node-id=0-1&mode=design&t=jkmHRCLcYSAC1FYe-0",
+        "skills" => ["Figma", "HTML", "CSS", "JavaScript", "Twig", "Pico", "PHP", "PDO"],
+        "commits" => 167,
         "github" => "https://github.com/WildCodeSchool/2023-02-php-paris-p2-story", 
-        "picture" => "e-stoire.jpg",
+        "picture" => "e-stoire.png",
+        "video" => "https://www.loom.com/embed/c23040421c2546f8b53af4e2f537a04d?sid=e861b0f3-631c-4b0d-9428-e9dbbbbeea1b?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true.",
+        "link" => "",
     ],
     [
         "title"=> "Hackathon : plan", 
         "createdAt"=> "2023-05-10", 
         "duration" => "1 jour", 
         "description" => "application de suggestion de destination de vacances", 
+        "mockup" => "",
         "skills" => ["HTML", "SCSS", "Twig", "PHP", "SQL", "PDO"], 
+        "commits" => 0,
         "github" => "https://github.com/leahad/plan", 
-        "picture" => "plan.jpg",
+        "picture" => "plan.png",
+        "video" => "https://www.loom.com/embed/552be33b5a204860a383781bf42acdcb?sid=1502ff2d-864f-40f2-82d6-d1bd911daf2d?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true.",
+        "link" => "",
     ],
     [
         "title"=> "Emmaüs Mobile Connect", 
         "createdAt"=> "2023-06-28", 
         "duration" => "2 jours", 
         "description" => "assistant de vente de smartphones pour Emmaüs", 
+        "commits" => 125,
+        "mockup" => "",
         "skills" => ["HTML", "CSS", "Twig", "Bootstrap", "PHP", "Symfony"], 
         "github" => "https://github.com/Lionel-darosa/Emmaus-Mobile-Connect", 
-        "picture" => "plan.jpg",
+        "picture" => "emmaus.png",
+        "video" =>"https://www.loom.com/embed/a952e632496e45788dcad61332cc5e5c?sid=31949e03-5ce8-4cf2-897f-ece96c4deb29?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true.",
+        "link" => "",
     ],
     [
         "title"=> "Externatic", 
@@ -61,8 +77,12 @@ class Project
         "duration" => "2 mois", 
         "description" => "plateforme de recherche d'emploi pour Externatic", 
         "skills" => ["Figma", "HTML", "CSS", "JavaScript", "Twig", "Bootstrap", "PHP", "Symfony"], 
+        "mockup" => "https://www.figma.com/file/PMIJifuRg4Muow4QVBvTkW/P3---Externatic?type=design&node-id=111-542&mode=design&t=7TIsqWefKqFEsejA-0",
+        "commits" => 444,
         "github" => "https://github.com/WildCodeSchool/2023-02-php-paris-p3-externatic", 
-        "picture" => "externatic.jpg",
+        "picture" => "externatic.png",
+        "video" => "https://www.loom.com/embed/b2266e12c2aa40419b5a8efb44e4042d?sid=155a2e78-bab7-4bbd-8fc5-711732adbe67?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true.",
+        "link" => "",
     ],
     ];
 
@@ -114,6 +134,15 @@ class Project
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?DateTimeInterface $updatedAt = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $commits = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $mockup = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $link = null;
 
     public function __construct()
     {
@@ -259,6 +288,42 @@ class Project
     public function setUpdatedAt(DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getCommits(): ?int
+    {
+        return $this->commits;
+    }
+
+    public function setCommits(?int $commits): static
+    {
+        $this->commits = $commits;
+
+        return $this;
+    }
+
+    public function getMockup(): ?string
+    {
+        return $this->mockup;
+    }
+
+    public function setMockup(?string $mockup): static
+    {
+        $this->mockup = $mockup;
+
+        return $this;
+    }
+
+    public function getLink(): ?string
+    {
+        return $this->link;
+    }
+
+    public function setLink(?string $link): static
+    {
+        $this->link = $link;
 
         return $this;
     }
