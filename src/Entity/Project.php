@@ -41,7 +41,7 @@ class Project
         "skills" => ["Figma", "HTML", "CSS", "JavaScript", "Twig", "Pico", "PHP", "PDO"],
         "commits" => 167,
         "github" => "https://github.com/WildCodeSchool/2023-02-php-paris-p2-story", 
-        "picture" => "e-stoire.png",
+        "picture" => "e-stoires.png",
         "video" => "https://www.loom.com/embed/c23040421c2546f8b53af4e2f537a04d?sid=e861b0f3-631c-4b0d-9428-e9dbbbbeea1b?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true.",
         "link" => "",
     ],
@@ -110,8 +110,7 @@ class Project
     #[Assert\NotBlank]
     private ?DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank]
+    #[ORM\Column(length: 255, nullable: true)]
     #[Assert\Length(min: 2, max:255)]
     private ?string $github = null;
 
@@ -143,6 +142,9 @@ class Project
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $link = null;
+
+    #[ORM\Column(type: Types::ARRAY, nullable: true)]
+    private ?array $githubLanguages = null;
 
     public function __construct()
     {
@@ -207,7 +209,7 @@ class Project
         return $this->github;
     }
 
-    public function setGithub(string $github): static
+    public function setGithub(?string $github): static
     {
         $this->github = $github;
 
@@ -246,7 +248,7 @@ class Project
         return $this->video;
     }
 
-    public function setVideo(string $video): static
+    public function setVideo(?string $video): static
     {
         $this->video = $video;
 
@@ -324,6 +326,18 @@ class Project
     public function setLink(?string $link): static
     {
         $this->link = $link;
+
+        return $this;
+    }
+
+    public function getGithubLanguages(): ?array
+    {
+        return $this->githubLanguages;
+    }
+
+    public function setGithubLanguages(?array $githubLanguages): static
+    {
+        $this->githubLanguages = $githubLanguages;
 
         return $this;
     }

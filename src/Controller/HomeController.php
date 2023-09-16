@@ -35,6 +35,7 @@ class HomeController extends AbstractController
         PaginatorInterface $paginator,
         ChartBuilderInterface $chartBuilder,
     ): Response {
+
         //Projects Display
         $SearchBySkills = $this->createForm(SkillsFilterType::class, null, ['method' => 'GET']);
         $SearchBySkills->handleRequest($request);
@@ -52,8 +53,16 @@ class HomeController extends AbstractController
             );
         }
 
-        //Modal content
-        // $languages = array_keys($github->getLanguages());
+        // dd($github->getLanguagesWithPercentage());
+        foreach ($projectRepository->findAll() as $project) {
+            if (is_null($project->getGithubLanguages())) {
+                $projectId = $project->getId();
+                $projectLanguages = $github->getLanguagesWithPercentage()[$projectId] ?? [];
+                $project->setGithubLanguages($projectLanguages);
+                $manager->persist($project);
+            }
+        }
+        $manager->flush(); 
 
         //Contact Form
         $contact = new Contact();
@@ -87,9 +96,7 @@ class HomeController extends AbstractController
             'projects' => $projects,
             'skills_form' => $SearchBySkills,
             'contact_form' => $form->createView(),
-            // 'github_contributions' => $github->getTotalContributions(),
-            'languages' => array_keys($github->getLanguages()),
-            'bytes' => $github->getBytesPercentage(),
+            'github_contributions' => $github->getTotalContributions(),
             'fortune_cookie' => $fortuneCookie->getMessage(),
         ]);
     }

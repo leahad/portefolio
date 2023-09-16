@@ -4,7 +4,7 @@
                 <img src="{{ vich_uploader_asset(project, 'pictureFile') }}" class="card-img-top" alt="project-picture">
             <div class="card-body">
                 <div class="card-text mt-2">
-                    <h6>{{ project.title }}</h6>
+                    <h5>{{ project.title }}</h5>
                 </div>
             </div>
         </div>
@@ -41,33 +41,31 @@
                         </ul>
                     </div>
                 </div>
-                {% if project.commits is not empty or project.commits > 0 %}
+                {% if project.commits is not empty and project.commits > 0 %}
                 <h6><strong> Commits : </strong> {{ project.commits }}</h6>
                 {% endif %}
                 <div class="row">
                     <div id="languages" class="col-lg-2">
-                        <h6><strong> Langages : </strong></h6>
+                        <h6><strong> Langages % </strong></h6>
                     </div>
-                    {{ dump(languages) }}
-                    {{ dump(bytes) }}
+
+                    {% set bootstrapClasses = ['bg-danger', 'bg-warning', 'bg-success', 'bg-light'] %}
+                    {% set segmentNumbers = ['One', 'Two', 'Three', 'Four', 'Five'] %}
+                    {% set classIndex = 0 %}
+
                     <div class="col-lg-10">
                         <div class="progress-stacked mb-4">
-                            <div class="progress" role="progressbar" aria-label="Segment one" aria-valuenow="{{ bytes[0] }}" aria-valuemin="0" aria-valuemax="100" style="width: 49.5%">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger">{{ languages[0] }}</div>
-                            </div>
-                            <div class="progress" role="progressbar" aria-label="Segment two" aria-valuenow="{{ bytes[1] }}" aria-valuemin="0" aria-valuemax="100" style="width: 40.2%">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning">{{ languages[1] }}</div>
-                            </div>
-                            <div class="progress" role="progressbar" aria-label="Segment three" aria-valuenow="8" aria-valuemin="{{ bytes[2] }}" aria-valuemax="100" style="width: 8%">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success">{{ languages[2] }}</div>
-                            </div>
-                            {% if languages[3] is defined %}
-                                <div class="progress" role="progressbar" aria-label="Segment four" aria-valuenow="1.5" aria-valuemin="{{ bytes[3] }}" aria-valuemax="100" style="width: 1.5%">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-light">{{ languages[3] }}</div>
+                            {% for language, bytes in project.githubLanguages %}
+                                {% set languageClass = bootstrapClasses[classIndex] ?? '' %}
+                                {% set segmentNumber = segmentNumbers[classIndex] ?? 'N/A' %}
+                                <div class="progress" role="progressbar" aria-label="Segment {{ segmentNumber }}" aria-valuenow="{{ bytes }}" aria-valuemin="0" aria-valuemax="99" style="width: {{ bytes }}%">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated {{ languageClass }}">{{ language }}</div>
                                 </div>
-                            {% endif %}
+                                {% set classIndex = (classIndex + 1) % bootstrapClasses|length %}
+                            {% endfor %}
                         </div>
                     </div>
+                    
                 </div>
                 {% if project.video is not empty %}
                     <div class="text-center" style="position: relative; padding-bottom: 56.25%; height: 0; margin: 0 auto;">

@@ -8,28 +8,33 @@ use App\Entity\Project;
 
 class GithubData
 {
-    // Possible future evolution : Display number of commits by repo
-    // $response = $this->client->request('GET', 'https://api.github.com/repos/leahad/cars4all/commits')
+    const LANGUAGES = [
+        1 => ['PHP' => 25000, 'JS'=>  5000,'TWIG'=>  20000],
+        2 => ['PHP' => 40000, 'SCSS'=>  5000,'TWIG'=>  20000,],
+        3 => ['PHP' => 40000, 'JS'=>  5000,'HTML'=>  20000,],
+        4 => ['JAVA' => 40000, 'JS'=>  5000,'HTML'=>  20000,],
+        5 => ['CSS' => 40000, 'JS'=>  5000,'REACT'=>  20000,],
+    ];
+
     private ProjectRepository $projectRepository;
 
     public function __construct(private HttpClientInterface $client, ProjectRepository $projectRepository) {
         $this->projectRepository = $projectRepository;
     }
 
-    // public function getTotalContributions()
-    // {
-    //     $response = $this->client->request('GET', 'https://github-contributions-api.deno.dev/leahad.json');
+    public function getTotalContributions()
+    {
+        $response = $this->client->request('GET', 'https://github-contributions-api.deno.dev/leahad.json');
 
-    //     $contributions = $response->toArray();
+        $contributions = $response->toArray();
     
-    //     return $contributions['totalContributions'];
-    // }
+        return $contributions['totalContributions'];
+    }
 
-    public function getLanguages()
+    public function getLanguagesWithPercentage()
     {
         $projects =  $this->projectRepository->findAll();
         $projectLanguages = [];
-        
 
         foreach ($projects as $project) {
             $github = parse_url($project->getGithub());
@@ -40,29 +45,25 @@ class GithubData
                 $response = $this->client->request('GET', 'https://api.github.com/repos' . $github['path'] . '/languages');
             }
         
-            // $languages = array_splice($array,0,-2);
-            // $language = implode(" - ", array_keys($newArray));
-            // if (($key = array_search('Dockerfile', $languages)) !== false) {
-            //     unset($languages[$key]);
-            // }
             $languages = $response->toArray();
-            $projectLanguages[$project->getId()] = $languages;
-        
+            foreach ($languages as $language => $bytes) {
+                if ($bytes < 12500) {
+                    unset($languages[$language]);
+                }
+            }
+            
+            $sumBytes = array_sum($languages);
+            $percentages = [];
+            foreach ($languages as $language => $bytes) {
+                $percentage = ($sumBytes > 0) ? ceil(($bytes * 100) / $sumBytes) : 0;
+                $percentages[$language] = $percentage;
+            }
+
+            $projectLanguages[$project->getId()] = $percentages;
         }
+        // $projectLanguages = SELF::LANGUAGES;
+        // dd($projectLanguages);
         return $projectLanguages;
     }
     
-
-    public function getBytesPercentage()
-    {
-        $bytes = array_values($this->getLanguages());
-        $bytesPercent = [];
-        foreach  ($bytes as $projectBytes) {
-            $sumBytes = array_sum($projectBytes);
-            foreach ($projectBytes as $byte) {
-                $bytesPercent[] = round(($byte * 100) / $sumBytes);
-            }
-        }
-        return $bytesPercent;
-    }
 }

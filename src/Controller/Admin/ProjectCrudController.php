@@ -42,6 +42,7 @@ class ProjectCrudController extends AbstractCrudController
                 ->setFormTypeOption('disabled', 'disabled'),
             IntegerField::new('commits'),
             TextField::new('github')
+                ->setFormTypeOptions(['required' => false])
                 ->hideOnIndex(),
             ImageField::new('picture')
                 ->setUploadDir('public/uploads/pictures')

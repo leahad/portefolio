@@ -7,15 +7,15 @@
             {# <img src="https://ghchart.rshah.org/leahad" alt="Name Your Github chart"> #}
             {# <a href="https://www.flaticon.com/free-icons/fortune-cookie" title="fortune cookie icons">Fortune cookie icons created by amonrat rungreangfangsai - Flaticon</a> #}
             <div class="text-center mt-4">
-                <div class="col-6 align-self-start">
-                    {# <p><strong>{{ github_contributions }}</strong> contributions Github depuis mars 2023</p> #}
+                <div class="col-sm-12" style="margin-top: 1rem;">
+                    <p><strong>{{ github_contributions }}</strong> contributions Github depuis mars 2023</p>
                 </div>
             </div>
             <div class="d-flex justify-content-end">
                 {% include 'home/section/_SearchSkills.html.twig'%}
             </div>
             <div class="margin">
-                <div class="row row-cols-1 row-cols-md-2 g-3">
+                <div id="projects" class="row row-cols-1 row-cols-md-2 g-3">
                     {% for project in projects %}
                         {% include 'home/section/_projectCard.html.twig'%}
                     {% endfor %}
