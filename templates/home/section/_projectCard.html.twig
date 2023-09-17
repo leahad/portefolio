@@ -23,7 +23,7 @@
                 {% if project.mockup is not empty %}
                     <h6><strong> Maquette </strong> <a href="{{ project.mockup }}" target="_blank"><img src="{{ asset('build/images/link.png') }}" alt="link-picto"/></a></h6>
                 {% endif %}
-                <h6><strong> Durée : </strong> {{ project.duration }}</h6>
+                <h6><strong> Date : </strong> {{ project.createdAt|date('m-Y') }} | <strong> Durée : </strong> {{ project.duration }}</h6>
                 <div class="row">
                     <div class="col-lg-1">
                         <h6><strong> Skills : </strong></h6>
@@ -59,7 +59,7 @@
                                 {% set languageClass = bootstrapClasses[classIndex] ?? '' %}
                                 {% set segmentNumber = segmentNumbers[classIndex] ?? 'N/A' %}
                                 <div class="progress" role="progressbar" aria-label="Segment {{ segmentNumber }}" aria-valuenow="{{ bytes }}" aria-valuemin="0" aria-valuemax="99" style="width: {{ bytes }}%">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated {{ languageClass }}">{{ language }}</div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated {{ languageClass }}">{{ language|replace({'JavaScript': 'JS'})|upper }}</div>
                                 </div>
                                 {% set classIndex = (classIndex + 1) % bootstrapClasses|length %}
                             {% endfor %}

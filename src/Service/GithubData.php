@@ -46,12 +46,13 @@ class GithubData
             }
         
             $languages = $response->toArray();
+        
             foreach ($languages as $language => $bytes) {
-                if ($bytes < 12500) {
+                if ($bytes < 2000) {
                     unset($languages[$language]);
                 }
             }
-            
+                
             $sumBytes = array_sum($languages);
             $percentages = [];
             foreach ($languages as $language => $bytes) {
@@ -61,6 +62,7 @@ class GithubData
 
             $projectLanguages[$project->getId()] = $percentages;
         }
+
         // $projectLanguages = SELF::LANGUAGES;
         // dd($projectLanguages);
         return $projectLanguages;

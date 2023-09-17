@@ -40,6 +40,13 @@ $list-group-border-color: none;
 $list-group-item-padding-x:0;
 $list-group-item-padding-y:0;
 
+$progress-font-size: 0.60rem;
+$progress-bar-color: black;
+
+.progress-bar {
+    font-weight: 700;
+}
+
 body.modal-open {
     padding-right: 0 !important;
 }
