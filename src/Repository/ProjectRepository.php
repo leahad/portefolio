@@ -26,7 +26,7 @@ class ProjectRepository extends ServiceEntityRepository
         return $this->findBy([], $orderBy);
     }
 
-    public function findSkills(array $search): ?array
+    public function findProjectsBySkills(array $search): ?array
     {
         $queryBuilder = $this->createQueryBuilder('p')
         ->select('p', 's')

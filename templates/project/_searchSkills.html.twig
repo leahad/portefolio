@@ -1,5 +1,5 @@
 <div class="mt-4 mb-2">
-    {{ form_start(skills_form) }}
+    {{ form_start(skills_form, {attr: {class:'js-filter-form'}}) }}
     <div class="dropdown">
         <button class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" type="button" id="dropdown-menu-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ field_label(skills_form.skills) }}
@@ -10,9 +10,9 @@
                     <input class="form-check-input border-success" type="checkbox" name="{{ field_name(skills_form.skills) }}[]" value="{{ value }}" id="flexCheckDefault" {{ value in field_value(skills_form.skills) ? 'checked' : '' }}>
                     <label class="form-check-label" for="flexCheckDefault"> {{ label }} </label>
                 </div>
-            {% endfor %}       
-            <button class="btn btn-secondary mt-2 mb-2 ms-2">Rechercher</button>       
+            {% endfor %}
+            {# <button class="btn btn-secondary mt-2 mb-2 ms-2">Rechercher</button> #}
         </div>   
-    </div>   
+    </div>
     {{ form_end(skills_form) }}
 </div>

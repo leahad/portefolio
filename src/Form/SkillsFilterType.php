@@ -20,8 +20,8 @@ class SkillsFilterType extends AbstractType
             'choice_label' => 'name',
             'attr' => [
                 'class' => 'mb-4',
-                // 'label-class' => 'form-check-label',
             ],
+            'empty_data' => '',
             'multiple' => true,
             'expanded' => true,
         ]);

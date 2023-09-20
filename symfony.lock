@@ -280,11 +280,11 @@
             "./config/packages/uid.yaml"
         ]
     },
-    "symfony/ux-chartjs": {
-        "version": "v2.11.1"
-    },
     "symfony/ux-dropzone": {
         "version": "v2.10.0"
+    },
+    "symfony/ux-swup": {
+        "version": "v2.11.1"
     },
     "symfony/validator": {
         "version": "6.3",

@@ -7,7 +7,6 @@ use App\Entity\Project;
 use App\Form\ContactType;
 use App\Form\SkillsFilterType;
 use App\Repository\ProjectRepository;
-use App\Repository\SkillRepository;
 use App\Service\FortuneCookie;
 use App\Service\FortuneCookies;
 use App\Service\GithubData;
@@ -19,8 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
-use Symfony\UX\Chartjs\Model\Chart;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class HomeController extends AbstractController
 {
@@ -33,25 +31,7 @@ class HomeController extends AbstractController
         FortuneCookie $fortuneCookie,
         ProjectRepository $projectRepository,
         PaginatorInterface $paginator,
-        ChartBuilderInterface $chartBuilder,
     ): Response {
-
-        //Projects Display
-        $SearchBySkills = $this->createForm(SkillsFilterType::class, null, ['method' => 'GET']);
-        $SearchBySkills->handleRequest($request);
-
-        $projects = $paginator->paginate(
-            $projectRepository->findAll(['id'=>'DESC']), 
-            $request->query->getInt('page', 1), 4
-        );
-
-        if ($SearchBySkills ->isSubmitted() && $SearchBySkills->isValid()) {
-            $search = $SearchBySkills->getData();
-            $projects = $paginator->paginate(
-                $projectRepository->findSkills($search),
-                $request->query->getInt('page', 1), 4
-            );
-        }
 
         // dd($github->getLanguagesWithPercentage());
         foreach ($projectRepository->findAll() as $project) {
@@ -63,6 +43,23 @@ class HomeController extends AbstractController
             }
         }
         $manager->flush(); 
+
+        // Projects Display
+        $searchBySkills = $this->createForm(SkillsFilterType::class, null, ['method' => 'GET']);
+        $searchBySkills->handleRequest($request);
+
+        $projects = $paginator->paginate(
+            $projectRepository->findAll(['id'=>'DESC']), 
+            $page = (int)$request->query->getInt('page', 1), 4
+        );
+
+        if ($searchBySkills ->isSubmitted() && $searchBySkills->isValid()) {
+            $search = $searchBySkills->getData();
+            $projects = $paginator->paginate(
+                $projectRepository->findProjectsBySkills($search),
+                $request->query->getInt('page', 1), 4
+            );
+        }
 
         //Contact Form
         $contact = new Contact();
@@ -80,7 +77,7 @@ class HomeController extends AbstractController
                 ->from($contact->getEmail())
                 ->to('hadida.lea@gmail.com')
                 ->subject($contact->getSubject())
-                ->html($this->renderView('home/contactEmail.html.twig', ['contact' => $contact]));
+                ->html($this->renderView('contact/contactEmail.html.twig', ['contact' => $contact]));
 
             $mailer->send($email);
 
@@ -91,10 +88,18 @@ class HomeController extends AbstractController
 
             return $this->redirectToRoute('home', ['contact_form' => $form ], Response::HTTP_SEE_OTHER);
         }
-        
-        return $this->render('home/index.html.twig', [
+
+        if ($request->get('ajax')) {
+            return new JsonResponse([
+                'content' => $this->renderView('project/_projects.html.twig', ['projects' => $projects]),
+                'pagination' => $this->renderView('project/_pagination.html.twig', ['projects' => $projects]),
+            ]);
+        };
+    
+        return $this->render('index.html.twig', [
             'projects' => $projects,
-            'skills_form' => $SearchBySkills,
+            'page'=> $page,
+            'skills_form' => $searchBySkills,
             'contact_form' => $form->createView(),
             'github_contributions' => $github->getTotalContributions(),
             'fortune_cookie' => $fortuneCookie->getMessage(),
